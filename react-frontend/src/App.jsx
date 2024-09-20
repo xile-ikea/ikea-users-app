@@ -17,6 +17,16 @@ function App() {
     fetchUsers();
   }, []);
 
+  const fetchManagers = async () => {
+    const response = await fetch(`${hostUrl}api/managers`);
+    const usersToJson = await response.json();
+    console.log(usersToJson);
+    setManagers(usersToJson);
+  };
+  useEffect(() => {
+    fetchManagers();
+  }, []);
+
   const updateUser = async (e) => {
     const response = await fetch(`${hostUrl}api/users/${e.target.dataset.id}`, {
       method: "PUT",
@@ -46,7 +56,7 @@ function App() {
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ name: e.target.name.value, isAdmin: e.target.isAdmin.checked  }),
+      body: JSON.stringify({ name: e.target.name.value, isAdmin: e.target.isAdmin.checked, favourite_beer: e.target.favourite_beer.value }),
     });
     const newUser = await response.json();
 
@@ -56,30 +66,40 @@ function App() {
 
   return (
     <>
-      <h1>New User</h1>
+      <h1>New Beer-User</h1>
       <form onSubmit={createUser}>
         <label htmlFor="name">Name</label>
         <input type="text" name="name" id="name" />
+        <label htmlFor="Favourite Beer">Favourite Beer</label>
+        <input type="text" name="Favourite_Beer" id="favourite_beer" />
         <label htmlFor="isAdmin">Is Admin</label>
         <input type="checkbox" name="isAdmin"/>
         <input type="submit" />
+        <button type="reset">Reset form</button>
+      
+        
+        
       </form>
       <br></br>
-      <h1>Users</h1>
+      <h1>Beer-Users</h1>
       <table>
         <thead>
           <tr>
             <th>Name</th>
             <th>Is Admin</th>
             <th>Delete</th>
+            <th>Update</th>
+            <th>Favourite Beer</th>
           </tr>
-        </thead>
+          </thead>
+
+        
         <tbody>
           {users.map((user) => (
             <tr key={user.id}>
               <td>
                 <p>{user.name}</p>
-              </td>
+                </td>
               <td>
                 <input
                   data-id={user.id}
@@ -88,10 +108,15 @@ function App() {
                   onChange={updateUser}
                 />
               </td>
+              
               <td>
                 <button data-id={user.id} onClick={deleteUser}>Delete</button>
                 <button data-id={user.id} onClick={updateUser}>Update</button>
+                
               </td>
+            <td><p>{user.favourite_beer}</p></td>
+
+              
             </tr>
           ))}
         </tbody>
