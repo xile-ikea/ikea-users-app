@@ -75,8 +75,8 @@ function App() {
               <td>{user.name}</td>
               <td>{user.isAdmin.toString()}</td>
               <td>
-                <button data-id={user.id} onClick={deleteUser}>Delete</button>
-                <button style={{ backgroundColor: 'red' }}>press me</button>
+                <button data-id={user.id} onClick={deleteUser}style={{ backgroundColor: 'red' }}>Delete</button>
+                <button style={{ backgroundColor: 'yellow' }}>Update</button>
               </td>
 
             </tr>
