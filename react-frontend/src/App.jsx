@@ -66,7 +66,7 @@ function App() {
 
   return (
     <>
-      <h1>New Beer-User</h1>
+      <h1>Create New Beer-User</h1>
       <form onSubmit={createUser}>
         <label htmlFor="name">Name</label>
         <input type="text" name="name" id="name" />

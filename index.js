@@ -129,7 +129,14 @@ app.delete('/api/managers/:id', async (req, res) => {
     res.json({data: `The manager with id of ${req.params.id} is removed.`});
 });
 
+//const port = process.env.PORT || 8080;
+//app.listen(port, async () => {
+  //console.log(`Server started at ${port}`);
+//});
+
 const port = process.env.PORT || 8080;
-app.listen(port, async () => {
-  console.log(`Server started at ${port}`);
+server =  app.listen(port, async () => {
+    console.log(`Server started at ${port}`)
 });
+module.exports = {app, server}
+
